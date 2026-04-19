@@ -3,8 +3,9 @@ import asyncio
 from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import CommandStart
+import os
 
-TOKEN = "8418697475:AAGcmm-quypeQMbWoTZw6Ca8zuFhHFDa1Kw"
+TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL = "@techmind_uz_main"
 
 bot = Bot(token=TOKEN)
