@@ -5,12 +5,26 @@ from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, InlineKe
 from aiogram.filters import CommandStart
 import os
 
+import json
+
+def load_users():
+    try:
+        with open("users.json", "r") as f:
+            return json.load(f)
+            
+    except FileNotFoundError:
+    return []
+
+def save_users(users):
+    with open("users.json", "w") as f:
+        json.dump(users, f, indent=2)
+        
 TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL = "@techmind_uz_main"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
-
+users = load_users()
 user_lang = {}
 
 # ====== TEXT BUTTONS ======
@@ -682,8 +696,21 @@ def sub_kb(lang):
 # ====== START ======
 @dp.message(CommandStart())
 async def start(msg: Message):
-    await msg.answer(DATA["uz"]["lang"], reply_markup=lang_kb())
+    user = msg.from_user
 
+    user_data = {
+        "id": user.id,
+        "username": user.username,
+        "name": user.first_name
+    }
+
+    if not any(u["id"] == user.id for u in users):
+    users.append(user_data)
+    save_users(users)
+
+    # 👇 MUHIM QISMI (til chiqishi uchun)
+    await msg.answer(DATA["uz"]["lang"], reply_markup=lang_kb())
+    
 # ====== LANGUAGE ======
 @dp.message(F.text.in_(["🇺🇿 O'zbek", "🇷🇺 Русский", "🇬🇧 English"]))
 async def set_lang(msg: Message):
