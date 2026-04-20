@@ -701,11 +701,10 @@ async def start(msg: Message):
         "username": user.username,
         "name": user.first_name
     }
-
-    if not any(u["id"] == user.id for u in users):
-    users.append(user_data)
-    save_users(users)
-
+   if not any(u["id"] == user.id for u in users):
+        users.append(user_data)
+        save_users(users)
+       
     # 👇 MUHIM QISMI (til chiqishi uchun)
     await msg.answer(DATA["uz"]["lang"], reply_markup=lang_kb())
     
