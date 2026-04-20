@@ -738,7 +738,17 @@ async def check(call):
         await call.message.answer(CONTENT["strategy"][lang], reply_markup=back_kb(lang))
     else:
         await call.answer(DATA[lang]["subscribe"], show_alert=True)
+        
+# ===== STATS =====
+ADMIN_ID = 6161677852 
 
+@dp.message(F.text == "/stats")
+async def stats(msg: Message):
+    if msg.from_user.id == ADMIN_ID:
+        await msg.answer(f"👥 Foydalanuvchilar soni: {len(users)}")
+    else:
+        await msg.answer("⛔ Siz admin emassiz")
+        
 # ====== UNIVERSITIES ======
 @dp.message(F.text.in_([DATA['uz']['uni'], DATA['ru']['uni'], DATA['en']['uni']]))
 async def uni(msg: Message):
