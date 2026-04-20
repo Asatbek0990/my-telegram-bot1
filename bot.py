@@ -26,7 +26,8 @@ CHANNEL = "@techmind_uz_main"
 
 bot = Bot(token=TOKEN)
 
-await bot.delete_webhook(drop_pending_updates=True)
+asyncio.run(bot.delete_webhook(drop_pending_updates=True))
+
 dp = Dispatcher()
 
 user_lang = {}
