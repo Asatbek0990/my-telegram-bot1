@@ -3,29 +3,12 @@ import asyncio
 from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import CommandStart
-
-from flask import Flask
-import threading
-import os
-
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Bot is running"
-
-def run_web():
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
-
-threading.Thread(target=run_web).start()
-
 import os
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL = "@techmind_uz_main"
 
 bot = Bot(token=TOKEN)
-
 dp = Dispatcher()
 
 user_lang = {}
