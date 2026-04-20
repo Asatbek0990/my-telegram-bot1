@@ -26,8 +26,6 @@ CHANNEL = "@techmind_uz_main"
 
 bot = Bot(token=TOKEN)
 
-asyncio.run(bot.delete_webhook(drop_pending_updates=True))
-
 dp = Dispatcher()
 
 user_lang = {}
@@ -804,6 +802,7 @@ async def back(msg: Message):
 
 # ====== RUN ======
 async def main():
+    await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
